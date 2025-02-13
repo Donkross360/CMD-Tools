@@ -33,7 +33,7 @@ func (l *List) Add(task string) {
 
 // Completed method marks a TODO item as completed by
 // setting Done = true and CompletedAt to current time
-func (l *List) CompeletedAt(i int) error {
+func (l *List) Compelete(i int) error {
 	ls := *l
 	if i <= 0 || i > len(ls) {
 		return fmt.Errorf("item %d does not exit", i)
