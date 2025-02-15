@@ -8,8 +8,8 @@ import (
 	"github.com/CMD-Tools/interacting/todo"
 )
 
-// hardcoding the file name
-const todoFilename = ".todo.json"
+// Default the file name
+var todoFileName = ".todo.json"
 
 func main() {
 
@@ -27,11 +27,16 @@ func main() {
 
 	flag.Parse()
 
+	//Check if the user defined the ENV VAR for a custom file name
+	if os.Getenv("TODO_FILENAME") != "" {
+		todoFileName = os.Getenv("TODO_FILENAME")
+	}
+
 	// define an items list
 	l := &todo.List{}
 
 	// Use the Get method to read to do items from file
-	if err := l.Get(todoFilename); err != nil {
+	if err := l.Get(todoFileName); err != nil {
 		fmt.Fscanln(os.Stderr, err)
 		os.Exit(1)
 	}
@@ -50,7 +55,7 @@ func main() {
 			os.Exit(0)
 		}
 		//Save the new list
-		if err := l.Save(todoFilename); err != nil {
+		if err := l.Save(todoFileName); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
@@ -59,7 +64,7 @@ func main() {
 		l.Add(*task)
 
 		//save the new list
-		if err := l.Save(todoFilename); err != nil {
+		if err := l.Save(todoFileName); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
