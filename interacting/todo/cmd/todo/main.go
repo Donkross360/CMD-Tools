@@ -13,6 +13,13 @@ const todoFilename = ".todo.json"
 
 func main() {
 
+	flag.Usage = func() {
+		fmt.Fprintf(flag.CommandLine.Output(), "%s tool. Developed for MidasTech\n", os.Args[0])
+		fmt.Fprintf(flag.CommandLine.Output(), "Copyright 2025\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "Usage information:\n")
+		flag.PrintDefaults()
+	}
+
 	//Parse command line flags
 	task := flag.String("task", "", "Task to be included in the ToDo list")
 	list := flag.Bool("list", false, "list all task")
@@ -34,11 +41,7 @@ func main() {
 	// for no extra arguments, print the list
 	case *list:
 		//list current todo items
-		for _, item := range *l {
-			if !item.Done {
-				fmt.Println(item.Task)
-			}
-		}
+		fmt.Print(l)
 
 	case *complete > 0:
 		// Complete the given item
