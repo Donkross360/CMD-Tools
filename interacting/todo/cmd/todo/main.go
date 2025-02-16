@@ -24,12 +24,12 @@ func main() {
 	}
 
 	//Parse command line flags
-	add := flag.Bool("add", false, "Add task to the todo list")
-	list := flag.Bool("list", false, "list all task")
-	complete := flag.Int("complete", 0, "Item to be completed")
-	delete := flag.Int("del", 0, "Delete an item form list")
-	verbose := flag.Bool("vlist", false, "List all task with date and time")
-	compNoShow := flag.Bool("xcomp", false, "Remove completed task from listed items")
+	add := flag.Bool("add", false, "Add task to the todo list: With -add you can add task\n to the list via STDIN or args after the -add option\n input the task directly or use a file with tasks in it\n Ex. ./todo -add args")
+	list := flag.Bool("list", false, "list all task - Ex. to list all task use ./todo -list")
+	complete := flag.Int("complete", 0, "Item to be completed: use the -complete option\n with the task id to mark a task as Done.\n Ex. to mark the nth number use: ./todo -complete n ")
+	delete := flag.Int("del", 0, "Delete an item form list: use the -del option\n with the task id to delete an item from list.\n Ex. to delete the nth item use: ./todo -del n")
+	verbose := flag.Bool("vlist", false, "List all task with date and time\n - to list all task with created date and time use: ./todo -vlist")
+	compNoShow := flag.Bool("xcomp", false, "Remove completed task from listed items \n- Ex. with ./todo -xcomp you can remove all completed item from list")
 
 	flag.Parse()
 
