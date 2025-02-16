@@ -28,6 +28,8 @@ func main() {
 	list := flag.Bool("list", false, "list all task")
 	complete := flag.Int("complete", 0, "Item to be completed")
 	delete := flag.Int("del", 0, "Delete an item form list")
+	verbose := flag.Bool("vlist", false, "List all task with date and time")
+	compNoShow := flag.Bool("xcomp", false, "Remove completed task from listed items")
 
 	flag.Parse()
 
@@ -87,6 +89,20 @@ func main() {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
+	case *verbose:
+
+		for i, item := range *l {
+			formattedTime := item.CreatedAt.Format("2006-01-02 15:04:05")
+
+			fmt.Printf("%d %s %q finished:%v\n", i+1, item.Task, formattedTime, item.Done)
+		}
+	case *compNoShow:
+		for i, item := range *l {
+			if !item.Done {
+				fmt.Printf("%d %s\n", i+1, item.Task)
+			}
+		}
+
 	default:
 		// Invalid flag provided
 		fmt.Fprintln(os.Stderr, "Invalid option")
